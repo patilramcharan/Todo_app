@@ -1,0 +1,77 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class TodoListApp {
+    private List<String> todoList;
+
+    public TodoListApp() {
+        todoList = new ArrayList<>();
+    }
+
+    public void addItem(String item) {
+        todoList.add(item);
+        System.out.println("Item added: " + item);
+    }
+
+    public void removeItem(int index) {
+        if (index >= 0 && index < todoList.size()) {
+            String removedItem = todoList.remove(index);
+            System.out.println("Item removed: " + removedItem);
+        } else {
+            System.out.println("Invalid index!");
+        }
+    }
+
+    public void displayItems() {
+        System.out.println("Todo List:");
+        if (todoList.isEmpty()) {
+            System.out.println("No items in the list.");
+        } else {
+            for (int i = 0; i < todoList.size(); i++) {
+                System.out.println((i + 1) + ". " + todoList.get(i));
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        TodoListApp todoListApp = new TodoListApp();
+        Scanner scanner = new Scanner(System.in);
+
+        boolean quit = false;
+        while (!quit) {
+            System.out.println("\n--- Todo List App ---");
+            System.out.println("1. Add item");
+            System.out.println("2. Remove item");
+            System.out.println("3. Display items");
+            System.out.println("4. Quit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline character
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter item to add: ");
+                    String item = scanner.nextLine();
+                    todoListApp.addItem(item);
+                    break;
+                case 2:
+                    System.out.print("Enter index of item to remove: ");
+                    int index = scanner.nextInt();
+                    todoListApp.removeItem(index - 1); // Adjust index by 1
+                    scanner.nextLine(); // Consume newline character
+                    break;
+                case 3:
+                    todoListApp.displayItems();
+                    break;
+                case 4:
+                    quit = true;
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+        }
+
+        System.out.println("Exiting Todo List App. Goodbye!");
+    }
+}
